@@ -20,12 +20,16 @@
         <button onclick="
               playGame('scissor');
         ">scissor</button>
+         <p class="jss-result"></p>
+         <p class="jss-play"></p>
+        <p class="jss-score"></p>
 
         <button onclick="
          score.wins = 0;
          score.losses = 0;
          score.ties = 0;
          localStorage.removeItem('score')
+         updateScoreElement();
         ">Reset Score</button>
 
     </p>
@@ -47,6 +51,8 @@
     ties = 0,
     }  
  }*/
+        updateScoreElement();
+        
 
 
               function playGame(playMove){
@@ -62,7 +68,9 @@
         } else if( computerMove === 'scissor'){
             result = 'tie'
         }
-    } else if(playMove === 'paper') {
+    } 
+    
+    else if(playMove === 'paper') {
          if( computerMove === 'rock'){
             result = 'you win';
         }
@@ -71,7 +79,9 @@
         } else if( computerMove === 'scissor'){
             result = 'you loose';
         }
-    } else if(playMove === 'rock'){
+    } 
+    
+    else if(playMove === 'rock'){
               if( computerMove === 'rock'){
             result = 'tie';
         }
@@ -94,10 +104,24 @@
 
     }
     localStorage.setItem('score', JSON.stringify(score))
-        alert(`you picked ${playMove} , Computer picked ${computerMove} , result : ${result}
-         wins : ${score.wins} , looses : ${score.losses} , tie : ${score.ties} `)
-              } 
+         updateScoreElement();
 
+           document.querySelector('.jss-result').innerHTML = 
+           result ;
+
+           document.querySelector('.jss-play').innerHTML = `you picked ${playMove} , Computer picked ${computerMove}`;
+        
+        
+
+     
+              } 
+ 
+
+        function updateScoreElement(){
+ document.querySelector('.jss-score').innerHTML = `wins : ${score.wins} , looses : ${score.losses} , tie : ${score.ties}`;
+        }
+        
+           
 
         function playComputerMove(){
            const randomNumber =  Math.random();
